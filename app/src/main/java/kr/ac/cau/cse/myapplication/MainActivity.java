@@ -18,11 +18,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("MainActivity","onCreate");
         ListView listView = (ListView)findViewById(R.id.mylist);
-        ArrayList<String> data = new ArrayList<>();
+        ArrayList<PostData> data = new ArrayList<>();
         for(int i = 0; i<30;i++){
-            data.add("item"+i);
+            data.add(new PostData(
+                    i,
+                    1+i%4,
+                    "post"+i,
+                    "body"+i
+            ));
         }
-        ArrayAdapter<String> adapt = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,data);
+        PostAdapter adapt = new PostAdapter(this,R.layout.customlayout,data);
         listView.setAdapter(adapt);
     }
 }

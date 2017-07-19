@@ -49,10 +49,10 @@ public class PostAdapter extends BaseAdapter {
         TextView tv_id,tv_userId,tv_title,tv_body;
 
         tv_id = (TextView)convertView.findViewById(R.id.tv_id);
-        tv_id.setText(mItems.get(position).id);
+        tv_id.setText(""+mItems.get(position).id);
 
         tv_userId = (TextView)convertView.findViewById(R.id.tv_userid);
-        tv_userId.setText(mItems.get(position).userid);
+        tv_userId.setText(""+mItems.get(position).userid);
 
         tv_title = (TextView)convertView.findViewById(R.id.tv_title);
         tv_title.setText(mItems.get(position).title);
