@@ -10,6 +10,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,13 +23,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Context mContext;
+    PostAdapter adapt;
+    ArrayList<PostData> data = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("MainActivity","onCreate");
         ListView listView = (ListView)findViewById(R.id.mylist);
-        final ArrayList<PostData> data = new ArrayList<>();
         for(int i = 0; i<30;i++){
             data.add(new PostData(
                     i,
@@ -36,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             ));
         }
         mContext = this;
-        PostAdapter adapt = new PostAdapter(this,R.layout.customlayout,data);
+         adapt = new PostAdapter(this,R.layout.customlayout,data);
         listView.setAdapter(adapt);
         listView .setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,12 +60,15 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //        adapt.notifyDataSetChanged();
     }
-    private class GetPostsTask extends AsyncTask<String,Void,String>{
+    private class GetPostsTask extends AsyncTask<String,Void,ArrayList<PostData>>{
         @Override
-        protected String doInBackground(String... params) {
+        protected ArrayList<PostData> doInBackground(String... params) {
             InputStream inputStream;
             String strResult = "";
+            ArrayList<PostData> tempArray = new ArrayList<>();
             try {
+                Thread.sleep(10000);
+
                 URL url = new URL("http://jsonplaceholder.typicode.com/posts");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setDoInput(true);
@@ -77,16 +84,34 @@ public class MainActivity extends AppCompatActivity {
                     strResult += line;
                 inputStream.close();
                 Log.d("get Posts",strResult);
+
+
+                JSONArray array = new JSONArray(strResult);
+                for(int i = 0;i<array.length();i++){
+                    JSONObject tempObject = array.getJSONObject(i);
+                    tempArray.add(
+                            new PostData(
+                                    tempObject.getInt("id"),
+                                    tempObject.getInt("userId"),
+                                    tempObject.getString("title"),
+                                    tempObject.getString("body")
+                            )
+                    );
+                }
+
             }catch (Exception e){
                 e.printStackTrace();
             }
 
-                return strResult;
+                return tempArray;
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected void onPostExecute(ArrayList<PostData> datas) {
+            super.onPostExecute(datas);
+            data.clear();
+            data.addAll(datas);
+            adapt.notifyDataSetChanged();
         }
     }
 }
