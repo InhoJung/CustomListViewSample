@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    Context mContext;
     PostAdapter adapt;
     ArrayList<PostData> data = new ArrayList<>();
     @Override
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                     "body"+i
             ));
         }
-        mContext = this;
          adapt = new PostAdapter(this,R.layout.customlayout,data);
         listView.setAdapter(adapt);
         listView .setOnItemClickListener(new AdapterView.OnItemClickListener() {
