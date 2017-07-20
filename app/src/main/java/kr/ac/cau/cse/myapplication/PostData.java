@@ -1,10 +1,12 @@
 package kr.ac.cau.cse.myapplication;
 
+import java.io.Serializable;
+
 /**
  * Created by dhtpr on 2017-07-19.
  */
 
-public class PostData {
+public class PostData implements Serializable{
     int id, userid;
     String title,body;
     public PostData(int id, int userid, String title, String body){
