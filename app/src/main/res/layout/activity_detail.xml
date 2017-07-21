@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_weight="10"
-    tools:context="kr.ac.cau.cse.myapplication.DetailActivity">
+    tools:context="kr.ac.cau.cse.aaaa.DetailActivity">
 
     <TextView
         android:id="@+id/textView"

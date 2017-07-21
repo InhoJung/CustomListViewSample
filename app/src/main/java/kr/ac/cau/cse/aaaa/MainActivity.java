@@ -1,6 +1,5 @@
-package kr.ac.cau.cse.myapplication;
+package kr.ac.cau.cse.aaaa;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,8 +19,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
-import static android.R.attr.value;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -59,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         });
         GetPostsTask myTask = new GetPostsTask();
         myTask.execute("");
+
+        startActivity(new Intent("kr.ac.cau.cse.aaaa.LOGIN"));
 //        for(int i = 0; i<30;i++){
 //            data.add(new PostData(
 //                    i,

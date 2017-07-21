@@ -1,4 +1,4 @@
-package kr.ac.cau.cse.myapplication;
+package kr.ac.cau.cse.aaaa;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
